@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc
 
 @RunWith(SpringRunner::class)
 class EventEntityTest {
-    private var mockMvc: MockMvc? = null
 
     @Before
     fun setUp() {
@@ -21,7 +20,7 @@ class EventEntityTest {
     @Test
     fun isValidTopicTest() {
         print("\n\n Testing isValidTopic method \n\n")
-        val topicEntiy: ArrayList<TopicEntiy> =
+        val topicEntity: ArrayList<TopicEntiy> =
             arrayListOf(
                 TopicEntiy("TOPICNAME-A"),
                 TopicEntiy("TOPICNAME-B"),
@@ -29,18 +28,18 @@ class EventEntityTest {
 
         val eventEntity = EventEntity("TOPICNAME-C")
 
-        Assert.assertTrue(eventEntity!!.isValidTopic(topicEntiy) is Unit)
+        Assert.assertTrue(eventEntity!!.isValidTopic(topicEntity) is Unit)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun invlidTopicTest() {
+    fun invalidTopicTest() {
         println("\n\n Testing invalid topic value")
 
-        val topicEntiy: ArrayList<TopicEntiy> = arrayListOf()
+        val topicEntity: ArrayList<TopicEntiy> = arrayListOf()
 
         val eventEntity = EventEntity("TOPIC")
 
-        eventEntity.isValidTopic(topicEntiy)
+        eventEntity.isValidTopic(topicEntity)
 
     }
 }
