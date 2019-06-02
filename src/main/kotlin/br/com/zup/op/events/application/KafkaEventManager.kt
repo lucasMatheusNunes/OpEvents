@@ -1,26 +1,28 @@
 package br.com.zup.op.events.application
 
-import br.com.zup.op.events.interfaces.model.Reason
-import br.com.zup.op.events.interfaces.model.ReasonsListResponse
-import br.com.zup.op.events.interfaces.model.RepublishEventRequest
-import br.com.zup.op.events.interfaces.model.RepublishEventResponse
-import br.com.zup.op.events.interfaces.model.TopicsListResponse
+import br.com.zup.op.events.interfaces.model.*
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import java.util.UUID
+import kotlin.collections.ArrayList
 
 @Service
 class KafkaEventManager: EventManager{
 
-    override fun topicList(request: RepublishEventRequest): TopicsListResponse {
+    override fun topicList(): TopicsListResponse {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
        // return TopicsListResponse(ArrayList<Topic>())
+        return TopicsListResponse(ArrayList<Reason>(), HttpStatus.OK)
+
     }
 
-    override fun reasonList(request: RepublishEventRequest): ReasonsListResponse {
+    override fun reasonList(): ReasonsListResponse {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
         //return ReasonsListResponse(ArrayList<Reason>())
+        return ReasonsListResponse(ArrayList<Reason>(), HttpStatus.OK)
+
     }
 
     override fun republish(request: RepublishEventRequest): RepublishEventResponse {

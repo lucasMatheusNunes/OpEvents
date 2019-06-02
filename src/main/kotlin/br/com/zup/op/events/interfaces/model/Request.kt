@@ -1,12 +1,13 @@
 package br.com.zup.op.events.interfaces.model
 
-import javax.persistence.Entity
-import javax.persistence.Id
+import org.springframework.http.HttpStatus
 
 data class RepublishEventRequest(
     val topic: String,
-    val event : Map <String, *>,
-    val reason: String
+    val payload : Map<String, *>,
+    val reason: String,
+    val user: String,
+    val note: String
 )
 
 data class RepublishEventResponse(
@@ -15,9 +16,11 @@ data class RepublishEventResponse(
 )
 
 data class ReasonsListResponse(
-    val reasons: ArrayList<Reason>
+    val reasons: ArrayList<Reason>,
+    val status: HttpStatus
 )
 
 data class TopicsListResponse(
-    val reasons: ArrayList<Reason>
+    val topics: ArrayList<Reason>,
+    val status: HttpStatus
 )
