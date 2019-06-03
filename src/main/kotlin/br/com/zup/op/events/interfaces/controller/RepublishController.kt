@@ -1,10 +1,7 @@
 package br.com.zup.op.events.interfaces.controller
 
 import br.com.zup.op.events.application.EventManager
-import br.com.zup.op.events.interfaces.model.ReasonsListResponse
-import br.com.zup.op.events.interfaces.model.RepublishEventRequest
-import br.com.zup.op.events.interfaces.model.RepublishEventResponse
-import br.com.zup.op.events.interfaces.model.TopicsListResponse
+import br.com.zup.op.events.interfaces.model.*
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -18,6 +15,13 @@ class RepublishController(private val eventManager: EventManager?) {
     fun republish(@RequestBody request: RepublishEventRequest): RepublishEventResponse {
 
        return eventManager!!.republish(request)
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    fun getRepublishEventsList(@RequestBody request: RepublishEventsListRequest): RepublishEventsListResponse{
+        return eventManager!!.republishList(request)
     }
 
     @GetMapping("/reasons")

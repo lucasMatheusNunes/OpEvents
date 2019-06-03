@@ -5,7 +5,5 @@ import org.springframework.stereotype.Repository
 import javax.persistence.Id
 
 @Repository
-interface EventRepository: CrudRepository<EventEntity, Id>{
-
-
+interface ReasonRepository: CrudRepository<ReasonEntity, Id> {
 }

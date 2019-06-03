@@ -1,10 +1,10 @@
-package br.com.zup.op.events.interfaces.model
+package br.com.zup.op.events.domain
 
 import javax.persistence.Entity
 import javax.persistence.Id
 
 @Entity
-class Reason(
+class ReasonEntity(
 
     @Id
     val name: String
