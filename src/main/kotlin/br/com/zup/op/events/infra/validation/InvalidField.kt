@@ -1,6 +1,5 @@
-package br.com.zup.op.events.exception.custom
+package br.com.zup.op.events.infra.validation
 
-import br.com.zup.op.events.exception.model.ApiFieldError
 import java.lang.RuntimeException
 
 class InvalidField(

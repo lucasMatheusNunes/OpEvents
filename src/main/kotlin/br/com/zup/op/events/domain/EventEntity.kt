@@ -1,7 +1,7 @@
 package br.com.zup.op.events.domain
 
-import br.com.zup.op.events.infra.annotation.PayloadValid
-import br.com.zup.op.events.validation.AnnotationFieldsValidation
+import br.com.zup.op.events.infra.validation.PayloadValid
+import br.com.zup.op.events.infra.validation.AnnotationFieldsValidation
 import java.util.UUID
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -18,7 +18,9 @@ data class EventEntity(
     @field:[NotEmpty PayloadValid]
     val payload: String,
     @field:NotEmpty
-    val user: String
+    val user: String,
+    @field:NotEmpty
+    val key : String
 ) {
 
     fun validateFields() {
@@ -26,6 +28,6 @@ data class EventEntity(
     }
 
     fun validateTopic(list: ArrayList<TopicEntiy>) {
-        if (!list.contains(TopicEntiy(this.topic))) throw IllegalArgumentException("Topic not found")
+        list.firstOrNull { it == TopicEntiy(this.topic) } ?: throw IllegalArgumentException("Topic $topic not found")
     }
 }

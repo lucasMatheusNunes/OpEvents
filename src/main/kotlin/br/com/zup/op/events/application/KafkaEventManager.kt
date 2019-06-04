@@ -10,6 +10,7 @@ import java.util.UUID
 
 @Service
 class KafkaEventManager : EventManager {
+    private val objectMapper = ObjectMapper()
 
     override fun republish(request: RepublishEventRequest): RepublishEventResponse {
         //call third-part APIs (http, database, kafka)
@@ -23,7 +24,12 @@ class KafkaEventManager : EventManager {
         topicEntity.add(TopicEntiy("TOPICNAME-5"))
         topicEntity.add(TopicEntiy("TOPICNAME-6"))
 
-        val eventEntity = EventEntity(topic = request.topic, payload = ObjectMapper().writeValueAsString(request.payload), user = "lucas.nunes@zup.com.br")
+        val eventEntity = EventEntity(
+            topic = request.topic,
+            payload = objectMapper.writeValueAsString(request.payload),
+            user = "lucas.nunes@zup.com.br",
+            key = "abcdfghij3493"
+        )
         eventEntity.validateFields()
         eventEntity.validateTopic(topicEntity)
 

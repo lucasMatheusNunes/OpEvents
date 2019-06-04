@@ -1,8 +1,5 @@
-package br.com.zup.op.events.validation
+package br.com.zup.op.events.infra.validation
 
-import br.com.zup.op.events.exception.custom.InvalidField
-import br.com.zup.op.events.exception.model.ApiFieldError
-import br.com.zup.op.events.exception.model.FieldValidationCallback
 import org.springframework.web.bind.MethodArgumentNotValidException
 import javax.validation.ConstraintViolation
 import javax.validation.Validation
@@ -20,7 +17,10 @@ class AnnotationFieldsValidation {
 
             for (violation: ConstraintViolation<T> in violations) {
                 fieldErrors.add(
-                    FieldValidationCallback(violation.propertyPath.toString(), violation.message)
+                    FieldValidationCallback(
+                        violation.propertyPath.toString(),
+                        violation.message
+                    )
                 )
             }
 

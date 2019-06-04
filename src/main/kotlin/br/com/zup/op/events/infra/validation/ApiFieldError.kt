@@ -1,4 +1,4 @@
-package br.com.zup.op.events.exception.model
+package br.com.zup.op.events.infra.validation
 
 class ApiFieldError (
     var message : String,

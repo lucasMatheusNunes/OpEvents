@@ -1,4 +1,4 @@
-package br.com.zup.op.events.infra.annotation
+package br.com.zup.op.events.infra.validation
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import javax.validation.ConstraintValidator

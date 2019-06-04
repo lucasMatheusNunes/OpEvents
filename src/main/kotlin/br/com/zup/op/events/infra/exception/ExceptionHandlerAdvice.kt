@@ -1,6 +1,7 @@
-package br.com.zup.op.events.exception.custom
+package br.com.zup.op.events.infra.exception
 
-import br.com.zup.op.events.exception.model.ApiFieldError
+import br.com.zup.op.events.infra.validation.ApiFieldError
+import br.com.zup.op.events.infra.validation.InvalidField
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import javax.servlet.http.HttpServletRequest
 
 @ControllerAdvice
-class HandlerAdvice {
+class ExceptionHandlerAdvice {
 
     @ExceptionHandler(InvalidField::class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)

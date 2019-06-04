@@ -1,4 +1,4 @@
-package br.com.zup.op.events.infra.annotation
+package br.com.zup.op.events.infra.validation
 
 import javax.validation.Constraint
 import javax.validation.Payload
