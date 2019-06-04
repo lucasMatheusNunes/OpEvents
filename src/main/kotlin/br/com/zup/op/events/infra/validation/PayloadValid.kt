@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
 @Retention(value = AnnotationRetention.RUNTIME)
 @MustBeDocumented
 annotation class PayloadValid(
-    val message: String = "Invalid Limit of Code",
+    val message: String = "Invalid payload",
     val groups: Array<KClass<*>> = [],
     val payload: Array<KClass<out Payload>> = []
 )

@@ -3,7 +3,7 @@ spring:
   datasource:
     platform: postgres
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:55491/zup_project
+    url: jdbc:postgresql://localhost:55491/op_events
     username: postgres
     password: postgres
   #JPA Properties

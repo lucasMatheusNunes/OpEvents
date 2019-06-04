@@ -13,7 +13,6 @@ class KafkaEventManager : EventManager {
     private val objectMapper = ObjectMapper()
 
     override fun republish(request: RepublishEventRequest): RepublishEventResponse {
-        //call third-part APIs (http, database, kafka)
 
         val topicEntity = ArrayList<TopicEntiy>()
 

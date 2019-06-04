@@ -23,9 +23,9 @@ data class EventEntity(
     val key : String
 ) {
 
-    fun validateFields() {
+    fun validateFields() =
         AnnotationFieldsValidation().validFields(this)
-    }
+
 
     fun validateTopic(list: ArrayList<TopicEntiy>) {
         list.firstOrNull { it == TopicEntiy(this.topic) } ?: throw IllegalArgumentException("Topic $topic not found")

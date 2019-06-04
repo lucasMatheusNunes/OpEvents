@@ -1,5 +1,10 @@
 package br.com.zup.op.events.domain
 
+import javax.persistence.Entity
+import javax.persistence.Id
+
+@Entity
 data class TopicEntiy(
-    val name : String
+    @Id
+    val name: String
 )

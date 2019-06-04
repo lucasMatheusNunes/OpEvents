@@ -1,10 +1,7 @@
 package br.com.zup.op.events.domain
 
-import br.com.zup.op.events.infra.validation.InvalidField
+import br.com.zup.op.events.infra.validation.InvalidFieldException
 import com.fasterxml.jackson.core.JsonParseException
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -14,7 +11,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.test.context.junit4.SpringRunner
 import java.io.File
-import java.nio.file.Paths
 
 
 @RunWith(SpringRunner::class)
@@ -55,7 +51,7 @@ class EventEntityTest {
         eventEntity.validateTopic(topicEntityEmptyList)
     }
 
-    @Test(expected = InvalidField::class)
+    @Test(expected = InvalidFieldException::class)
     fun `should accept the validation when payload and user is blank`() {
         logger.info("Testing: should accept the validation when payload and user is blank")
 
@@ -63,7 +59,7 @@ class EventEntityTest {
         Assert.assertTrue(eventEntity.validateFields() is Unit)
     }
 
-    @Test(expected = JsonParseException::class)
+    @Test(expected = InvalidFieldException::class)
     fun `should accept the validation when payload is invalid format`() {
         logger.info("Testing: should accept the validation when payload is invalid format")
 

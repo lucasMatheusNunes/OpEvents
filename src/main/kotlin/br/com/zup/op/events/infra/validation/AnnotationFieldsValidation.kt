@@ -24,7 +24,7 @@ class AnnotationFieldsValidation {
                 )
             }
 
-            throw InvalidField(ApiFieldError("", fieldErrors))
+            throw InvalidFieldException(ApiFieldError("", fieldErrors))
         }
     }
 }

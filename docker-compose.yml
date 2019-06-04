@@ -1,21 +1,21 @@
 version: '3'
 services:
   
-  nginx:
-    container_name: nginx-auth-google
-    image: nginx
-    ports:
-    - "5000:80"
-    volumes:
-    - ./site:/usr/share/nginx/html
-    depends_on:
-      - postgres
+  #nginx:
+  #  container_name: nginx
+  #  image: nginx
+  #  ports:
+  #  - "5000:80"
+  #  volumes:
+  #  - ./site:/usr/share/nginx/html
+  #  depends_on:
+  #    - postgres
   
   postgres:
-    container_name: postgres-auth-google
+    container_name: postgres
     image: postgres
     environment:
-      POSTGRES_DB: zup_project
+      POSTGRES_DB: op_events
       POSTGRES_USER: postgres 
       POSTGRES_PASSWORD: postgres
     ports:
