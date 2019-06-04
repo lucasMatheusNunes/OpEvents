@@ -1,5 +1,5 @@
 package br.com.zup.op.events.domain
 
-class TopicEntiy(
+data class TopicEntiy(
     val name : String
 )
