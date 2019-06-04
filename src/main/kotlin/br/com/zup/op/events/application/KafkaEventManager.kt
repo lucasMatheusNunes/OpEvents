@@ -38,7 +38,7 @@ class KafkaEventManager(
         request.topic,
         request.payload.toString(),
         request.reason,
-        request.user,
+        request.user_name,
         request.note
     )
     //do validations
