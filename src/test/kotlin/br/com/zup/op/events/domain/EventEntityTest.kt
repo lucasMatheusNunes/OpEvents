@@ -55,7 +55,7 @@ class EventEntityTest {
         logger.info("Testing: should accept the validation when payload and user is blank")
 
         val eventEntity = EventEntity(topic = "rw_A", payload = "", user = "", key = "")
-        Assert.assertTrue(eventEntity.validateFields() is Unit)
+        eventEntity.validateFields()
     }
 
     @Test(expected = InvalidFieldException::class)
