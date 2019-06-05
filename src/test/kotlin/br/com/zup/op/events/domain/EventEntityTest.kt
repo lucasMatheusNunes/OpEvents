@@ -18,9 +18,9 @@ class EventEntityTest {
     private val topicEntityEmptyList: ArrayList<TopicEntiy> = arrayListOf()
     private val topicEntityFullList: ArrayList<TopicEntiy> =
         arrayListOf(
-            TopicEntiy("TOPICNAME-A"),
-            TopicEntiy("TOPICNAME-B"),
-            TopicEntiy("TOPICNAME-C")
+            TopicEntiy("rw_A"),
+            TopicEntiy("rw_B"),
+            TopicEntiy("rw_C")
         )
 
     @Before
@@ -33,7 +33,7 @@ class EventEntityTest {
         logger.info("Testing: should accept the validation when the topic found on list")
 
         val eventEntity = EventEntity(
-            topic = "TOPICNAME-A",
+            topic = "rw_A",
             payload = File("./src/test/resources/payload.json").readText(),
             user = "lucas.nunes@zup.com.br",
             key = "abcdfghij3493"
@@ -54,7 +54,7 @@ class EventEntityTest {
     fun `should accept the validation when payload and user is blank`() {
         logger.info("Testing: should accept the validation when payload and user is blank")
 
-        val eventEntity = EventEntity(topic = "TOPICNAME-A", payload = "", user = "", key = "")
+        val eventEntity = EventEntity(topic = "rw_A", payload = "", user = "", key = "")
         Assert.assertTrue(eventEntity.validateFields() is Unit)
     }
 
@@ -63,7 +63,7 @@ class EventEntityTest {
         logger.info("Testing: should accept the validation when payload is invalid format")
 
         val eventEntity = EventEntity(
-            topic = "TOPICNAME-A",
+            topic = "rw_A",
             payload = File("./src/test/resources/invalidPayload.json").readText(),
             user = "lucas.nunes@zup.com.br",
             key = "abcdfghij3493"

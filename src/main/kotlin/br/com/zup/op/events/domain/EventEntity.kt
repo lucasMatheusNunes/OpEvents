@@ -28,6 +28,8 @@ data class EventEntity(
 
 
     fun validateTopic(list: ArrayList<TopicEntiy>) {
+        if(!this.topic.startsWith("rw_")) throw java.lang.IllegalArgumentException("Topic $topic is invalid name")
+
         list.firstOrNull { it == TopicEntiy(this.topic) } ?: throw IllegalArgumentException("Topic $topic not found")
     }
 }
