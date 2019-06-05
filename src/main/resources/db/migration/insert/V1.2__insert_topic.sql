@@ -1,1 +1,0 @@
-INSERT INTO topic(name) VALUES('rw_12');
