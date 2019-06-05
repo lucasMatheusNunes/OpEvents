@@ -1,6 +1,7 @@
 package br.com.zup.op.events.interfaces.controller
 
 import br.com.zup.op.events.application.EventManager
+import br.com.zup.op.events.domain.ReasonEntity
 import br.com.zup.op.events.interfaces.model.*
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -27,7 +28,7 @@ class RepublishController(private val eventManager: EventManager?) {
     @GetMapping("/reasons")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    fun getReasonsList(): ReasonsListResponse {
+    fun getReasonsList(): ArrayList<ReasonEntity> {
 
         return eventManager!!.reasonList()
     }

@@ -25,9 +25,10 @@ class KafkaEventManager(
     return TopicsListResponse(ArrayList<ReasonEntity>(), HttpStatus.OK)
   }
 
-  override fun reasonList(): ReasonsListResponse {
+  override fun reasonList(): java.util.ArrayList<ReasonEntity> {
     val reasonList = reasonRepository.findAll()
-    return ReasonsListResponse(reasonList as ArrayList<ReasonEntity>, HttpStatus.OK)
+    //return ReasonsListResponse(reasonList as ArrayList<ReasonEntity>, HttpStatus.OK)
+      return reasonList as ArrayList<ReasonEntity>
   }
 
   override fun republish(request: RepublishEventRequest): RepublishEventResponse {
