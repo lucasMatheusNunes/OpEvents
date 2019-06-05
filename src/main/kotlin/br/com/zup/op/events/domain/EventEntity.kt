@@ -19,7 +19,7 @@ data class EventEntity(
     @field:NotEmpty
     val user: String,
     @field:NotEmpty
-    val key : String
+    val key: String
 ) {
 
     fun validateFields() =
