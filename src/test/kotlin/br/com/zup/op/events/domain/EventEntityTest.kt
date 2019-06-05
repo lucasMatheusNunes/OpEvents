@@ -1,7 +1,6 @@
 package br.com.zup.op.events.domain
 
 import br.com.zup.op.events.infra.validation.InvalidFieldException
-import com.fasterxml.jackson.core.JsonParseException
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

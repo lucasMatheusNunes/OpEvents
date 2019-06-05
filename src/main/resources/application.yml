@@ -1,16 +1,9 @@
 spring:
   #Database
   datasource:
-    platform: postgres
-    driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:55491/op_events
     username: postgres
     password: postgres
   #JPA Properties
   jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: false
-    database: POSTGRESQL
-    generate-ddl: true
     properties.hibernate.jdbc.lob.non_contextual_creation: true
