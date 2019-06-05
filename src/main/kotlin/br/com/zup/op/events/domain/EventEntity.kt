@@ -27,7 +27,7 @@ data class EventEntity(
         AnnotationFieldsValidation().validFields(this)
 
 
-    fun validateTopic(list: ArrayList<TopicEntiy>) {
+    fun validateTopic(list: List<TopicEntiy>) {
         //Example for future implementation of topic in blacklist
         //if(!this.topic.startsWith("rw_")) throw java.lang.IllegalArgumentException("Topic $topic is invalid name")
 
