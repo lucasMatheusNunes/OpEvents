@@ -1,6 +1,5 @@
 package br.com.zup.op.events.domain
 
-import br.com.zup.op.events.infra.validation.PayloadValid
 import br.com.zup.op.events.infra.validation.AnnotationFieldsValidation
 import java.util.UUID
 import javax.persistence.GeneratedValue
@@ -15,7 +14,7 @@ data class EventEntity(
     val id: UUID? = UUID.randomUUID(),
     @field:[NotEmpty]
     val topic: String,
-    @field:[NotEmpty PayloadValid]
+    @field:[NotEmpty]
     val payload: String,
     @field:NotEmpty
     val user: String,

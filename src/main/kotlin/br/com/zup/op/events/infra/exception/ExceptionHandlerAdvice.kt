@@ -3,36 +3,34 @@ package br.com.zup.op.events.infra.exception
 import br.com.zup.op.events.infra.validation.ApiFieldError
 import br.com.zup.op.events.infra.validation.FieldValidationCallback
 import br.com.zup.op.events.infra.validation.InvalidFieldException
+import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.ResponseBody
 import javax.servlet.http.HttpServletRequest
 
 @ControllerAdvice
 class ExceptionHandlerAdvice {
 
     @ExceptionHandler(InvalidFieldException::class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    fun handleInvalidField(request: HttpServletRequest, ex: InvalidFieldException): ResponseEntity<ApiFieldError> {
-        return ResponseEntity(ex.apiFieldError, HttpHeaders(), HttpStatus.BAD_REQUEST)
-    }
+    @ResponseBody
+    fun handleInvalidField(request: HttpServletRequest, ex: InvalidFieldException): ResponseEntity<ApiFieldError> =
+        ResponseEntity.badRequest().body(ex.apiFieldError)
 
     @ExceptionHandler(IllegalArgumentException::class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    fun handleIllegalArgument(ex: IllegalArgumentException): ResponseEntity<ApiFieldError> {
-        return ResponseEntity(
-            ApiFieldError(ex.message, emptyList()),
-            HttpHeaders(),
-            HttpStatus.BAD_REQUEST
-        )
-    }
+    @ResponseBody
+    fun handleIllegalArgument(ex: IllegalArgumentException): ResponseEntity<ApiFieldError> =
+        ResponseEntity.badRequest().body(ApiFieldError(ex.message, emptyList()))
+
+    @ExceptionHandler(MismatchedInputException::class)
+    @ResponseBody
+    fun handleMismatchedInput(ex: MismatchedInputException) : ResponseEntity<ApiFieldError> =
+        ResponseEntity.badRequest().body(ApiFieldError("Invalid payload", emptyList()))
 
     @ExceptionHandler(MissingKotlinParameterException::class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseBody
     fun habdleJsonMapping(ex: MissingKotlinParameterException): ResponseEntity<ApiFieldError> {
 
         var fieldsError = ArrayList<FieldValidationCallback>()
@@ -44,11 +42,11 @@ class ExceptionHandlerAdvice {
                 )
             )
         }
-        return ResponseEntity(
+        return ResponseEntity.badRequest().body(
             ApiFieldError(
                 "Exist fields required with invalid values or that were don't send",
                 fieldsError
-            ), HttpHeaders(), HttpStatus.BAD_REQUEST
+            )
         )
     }
 }

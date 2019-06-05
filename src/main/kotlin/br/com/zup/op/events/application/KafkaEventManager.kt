@@ -15,7 +15,7 @@ class KafkaEventManager(private val topicRepository: TopicRepository) : EventMan
 
     override fun republish(request: RepublishEventRequest): RepublishEventResponse {
 
-        val topicEntityDataBase = topicRepository.findAll()
+        val topics = topicRepository.findAll()
 
         val eventEntity = EventEntity(
             topic = request.topic,
@@ -24,7 +24,7 @@ class KafkaEventManager(private val topicRepository: TopicRepository) : EventMan
             key = request.key
         )
         eventEntity.validateFields()
-        eventEntity.validateTopic(topicEntityDataBase)
+        eventEntity.validateTopic(topics)
 
         return RepublishEventResponse(UUID.randomUUID().toString(), "PUBLISHED")
     }
