@@ -22,4 +22,20 @@ class RepublishController(private val eventManager: EventManager) {
 
        return eventManager.republish(request)
     }
+
+    @GetMapping("/reasons")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    fun getReasonsList(): ArrayList<ReasonEntity> {
+
+        return eventManager!!.reasonList()
+    }
+
+    @GetMapping("/topics")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    fun getTopicsList(): TopicsListResponse {
+
+        return eventManager!!.topicList()
+    }
 }

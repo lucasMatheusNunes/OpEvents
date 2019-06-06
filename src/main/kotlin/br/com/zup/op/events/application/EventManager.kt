@@ -5,4 +5,11 @@ import br.com.zup.op.events.interfaces.model.RepublishEventResponse
 
 interface EventManager {
     fun republish(request: RepublishEventRequest): RepublishEventResponse
+
+    fun republishList(request: RepublishEventsListRequest): RepublishEventsListResponse
+
+    fun reasonList(): ArrayList<ReasonEntity>
+
+    fun topicList(): TopicsListResponse
+
 }

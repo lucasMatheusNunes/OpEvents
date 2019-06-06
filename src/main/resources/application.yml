@@ -7,3 +7,9 @@ spring:
   #JPA Properties
   jpa:
     properties.hibernate.jdbc.lob.non_contextual_creation: true
+  kafka:
+    bootstrapAddress: localhost:2181
+    brokers: localhost:2181 #kafkahost:kafkaport
+
+
+

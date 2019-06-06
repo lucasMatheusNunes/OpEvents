@@ -22,6 +22,11 @@ class EventEntityTest {
             TopicEntiy("rw_B"),
             TopicEntiy("rw_C")
         )
+  private val reasons: ArrayList<ReasonEntity> = arrayListOf(
+      ReasonEntity("REASON_A"),
+      ReasonEntity("REASON_B"),
+      ReasonEntity("REASON_C")
+  )
 
     @Before
     fun setUp() {
@@ -69,5 +74,50 @@ class EventEntityTest {
             key = "abcdfghij3493"
         )
         eventEntity.validateFields()
+    }
+
+  @Test
+  fun isReasonValidTest() {
+    println("\n\n Test of reason validity \n\n")
+    val entityTest = EventEntity(
+        UUID.randomUUID(),
+        "TOPIC_A",
+        "REASON_A",
+        "{" +
+            "'attribute_a': 'param_a'," +
+            "'attribute_b': {" +
+            "'var_obj_a': 'value_a'" +
+            "'var_obj_b': 'value_b'" +
+            "'var_obj_c': 'value_c'" +
+            "}" +
+            "}",
+        "APPROVER_USER'S_NAME",
+        ""
+    )
+    Assert.assertTrue(entityTest!!.isReasonValid(reasons) is Unit)
+  }
+
+  @Test(expected = IllegalArgumentException::class)
+  fun isInvalidReasonTest() {
+    println("\n\n Test of reason validity \n\n")
+    val entityTest = EventEntity(
+        UUID.randomUUID(),
+        "TOPIC_A",
+        "INVALID_REASON",
+        "{" +
+            "'attribute_a': 'param_a'," +
+            "'attribute_b': {" +
+            "'var_obj_a': 'value_a'" +
+            "'var_obj_b': 'value_b'" +
+            "'var_obj_c': 'value_c'" +
+            "}" +
+            "}",
+        "APPROVER_USER'S_NAME",
+        ""
+    )
+    entityTest!!.isReasonValid(reasons)
+
+        val eventEntity = EventEntity(null, "TOPIC1", "", "", "")
+        eventEntity.validateTopic(topicEntityEmptyList)
     }
 }
