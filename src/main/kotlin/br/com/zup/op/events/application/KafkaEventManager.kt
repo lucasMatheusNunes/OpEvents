@@ -21,6 +21,11 @@ class KafkaEventManager(
 ) : EventManager {
 
 
+  override fun reasonList(): java.util.ArrayList<ReasonEntity> {
+    val reasonList = reasonRepository.findAll()
+    //return ReasonsListResponse(reasonList as ArrayList<ReasonEntity>, HttpStatus.OK)
+      return reasonList as ArrayList<ReasonEntity>
+  }
 
   override fun republish(request: RepublishEventRequest): RepublishEventResponse {
 
@@ -52,7 +57,7 @@ class KafkaEventManager(
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 
-  override fun reasonList(): ReasonsListResponse = ReasonsListResponse(reasonRepository.findAll() as ArrayList<ReasonEntity>, HttpStatus.OK)
+  //override fun reasonList(): ArrayList<ReasonEntity> = reasonRepository.findAll() as ArrayList<ReasonEntity>
 
   override fun topicList(): TopicsListResponse = TopicsListResponse(ArrayList<ReasonEntity>(), HttpStatus.OK)
 
