@@ -34,6 +34,7 @@ class KafkaEventManagerTest {
         payload,
         "REASON_A",
         "APPROVER_USER'S_NAME",
+        "",
         ""
     )
     println("\nkafkaEventManager.republish(entityTest).run\n")

@@ -13,7 +13,7 @@ import java.util.*
 class KafkaProducerConfig {
 
 
-  //@Value("${spring.kafka.bootstrap-servers}")
+  //@Value("${spring.kafka.bootstrapAddress}")
   val bootstrapAddress: String = "localhost:2181"
 
   @Bean

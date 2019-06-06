@@ -1,9 +1,5 @@
 package br.com.zup.op.events.domain
 
-import org.springframework.data.repository.CrudRepository
-import org.springframework.stereotype.Repository
-import javax.persistence.Id
+import org.springframework.data.jpa.repository.JpaRepository
 
-@Repository
-interface ReasonRepository: CrudRepository<ReasonEntity, Id> {
-}
+interface ReasonRepository: JpaRepository<ReasonEntity, String>
