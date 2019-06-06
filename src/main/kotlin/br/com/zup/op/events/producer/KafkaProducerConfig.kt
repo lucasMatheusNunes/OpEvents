@@ -14,7 +14,7 @@ class KafkaProducerConfig {
 
 
   //@Value("${spring.kafka.bootstrapAddress}")
-  val bootstrapAddress: String = "localhost:2181"
+  val bootstrapAddress = "localhost:9092"
 
   @Bean
   fun producerFactory(): ProducerFactory<String, String> {

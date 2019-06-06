@@ -8,8 +8,8 @@ spring:
   jpa:
     properties.hibernate.jdbc.lob.non_contextual_creation: true
   kafka:
-    bootstrapAddress: localhost:2181
-    brokers: localhost:2181 #kafkahost:kafkaport
-
-
+    brokers: 0.0.0.0:2181 #kafkahost:kafkaport
+    producer:
+      #bootstrapAddress: 0.0.0.0:2181
+      bootstrap-servers: 0.0.0.0:9092
 
