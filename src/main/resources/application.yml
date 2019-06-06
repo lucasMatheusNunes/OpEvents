@@ -1,0 +1,9 @@
+spring:
+  #Database
+  datasource:
+    url: jdbc:postgresql://localhost:55491/op_events
+    username: postgres
+    password: postgres
+  #JPA Properties
+  jpa:
+    properties.hibernate.jdbc.lob.non_contextual_creation: true

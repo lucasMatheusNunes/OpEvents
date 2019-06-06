@@ -1,0 +1,9 @@
+INSERT INTO reason(name) VALUES('Reason 1');
+INSERT INTO reason(name) VALUES('Reason 2');
+INSERT INTO reason(name) VALUES('Reason 3');
+INSERT INTO reason(name) VALUES('Reason 4');
+INSERT INTO reason(name) VALUES('Reason 5');
+INSERT INTO reason(name) VALUES('Reason 6');
+INSERT INTO reason(name) VALUES('Reason 7');
+INSERT INTO reason(name) VALUES('Reason 8');
+INSERT INTO reason(name) VALUES('Reason 9');
