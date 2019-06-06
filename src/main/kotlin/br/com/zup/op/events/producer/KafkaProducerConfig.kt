@@ -18,7 +18,6 @@ class KafkaProducerConfig {
   @Autowired
   private val consumerFactory: ConsumerFactory<String, Any>? = null
 
-  //@Value("${spring.kafka.bootstrapAddress}")
   val bootstrapAddress: String = "localhost:2181"
 
   @Bean

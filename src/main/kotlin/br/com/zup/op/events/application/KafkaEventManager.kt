@@ -37,7 +37,7 @@ class KafkaEventManager(
                 note = request.note
         )
         eventEntity.validateFields()
-        eventEntity.validateTopic(this.topicList())
+        eventEntity.validateTopic(this.listTopics())
         eventEntity.validateReason(reasons)
 
         val statusRepublish = kafkaTemplate.send(request.topic, request.payload.toString())
@@ -51,9 +51,8 @@ class KafkaEventManager(
         return reasonRepository.findAll() as ArrayList<ReasonEntity>
     }
 
-    override fun topicList(): ArrayList<TopicEntiy> {
+    override fun listTopics(): ArrayList<TopicEntiy> {
         var listTopics  = topicConsumer.listTopics()
-
         val response = ArrayList<TopicEntiy>()
 
         for((key) in listTopics){

@@ -37,6 +37,6 @@ class RepublishController(private val eventManager: EventManager) {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     fun getTopicsList(): ArrayList<TopicEntiy> {
-        return eventManager!!.topicList()
+        return eventManager!!.listTopics()
     }
 }
