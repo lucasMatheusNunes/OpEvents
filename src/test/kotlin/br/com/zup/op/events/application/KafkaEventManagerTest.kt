@@ -23,14 +23,11 @@ class KafkaEventManagerTest {
     val payload = mapOf(
         "attribute_a" to "param_a",
         "attribute_b" to mapOf(
-            "obj_attribute_a" to "param_attribute_a",
-            "obj_attribute_b" to "param_attribute_b",
-            "obj_attribute_c" to mapOf(
-                "var_obj_a" to "value_a",
-                "var_obj_b" to "value_b",
-                "var_obj_c" to "value_c"
-            )
+            "var_obj_a" to "value_a",
+            "var_obj_b" to "value_b",
+            "var_obj_c" to "value_c"
         )
+
     )
     val entityTest_a = RepublishEventRequest(
         "TOPIC_A",

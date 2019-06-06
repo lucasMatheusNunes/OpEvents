@@ -2,6 +2,8 @@ package br.com.zup.op.events.interfaces.model
 
 import br.com.zup.op.events.domain.ReasonEntity
 import org.springframework.http.HttpStatus
+import org.springframework.kafka.support.SendResult
+import org.springframework.util.concurrent.ListenableFuture
 import java.util.*
 
 data class RepublishEventRequest(
@@ -22,7 +24,7 @@ data class RepublishEventsListRequest(
 
 data class RepublishEventResponse(
     val id: String,
-    val status: String
+    val status: ListenableFuture<SendResult<String, String>>
 )
 
 data class RepublishEventsListResponse(
@@ -39,3 +41,5 @@ data class TopicsListResponse(
     val topics: ArrayList<ReasonEntity>,
     val status: HttpStatus
 )
+
+data class Kafka(val bootstrapServers: String)

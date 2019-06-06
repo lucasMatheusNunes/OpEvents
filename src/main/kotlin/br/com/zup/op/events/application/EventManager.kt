@@ -7,6 +7,11 @@ interface EventManager {
 
     fun republishList(request: RepublishEventsListRequest): RepublishEventsListResponse
 
+
+   // fun sendMessage(topic:String, message: String): ListenableFuture<SendResult<String, String>>
+
+
+
     fun reasonList(): ReasonsListResponse
 
     fun topicList(): TopicsListResponse

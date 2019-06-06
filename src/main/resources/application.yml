@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:55491/zup_project
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  kafka:
+    bootstrapAddress: localhost:2181
+    brokers: localhost:2181 #kafkahost:kafkaport
+
+
+

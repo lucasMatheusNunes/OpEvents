@@ -33,13 +33,9 @@ class EventEntityTest {
         "{" +
             "'attribute_a': 'param_a'," +
             "'attribute_b': {" +
-            "'obj_attribute_a': 'param_attribute_a'" +
-            "'obj_attribute_b': 'param_attribute_b'" +
-            "'obj_attribute_c': {" +
             "'var_obj_a': 'value_a'" +
             "'var_obj_b': 'value_b'" +
             "'var_obj_c': 'value_c'" +
-            "}" +
             "}" +
             "}",
         "APPROVER_USER'S_NAME",
@@ -58,13 +54,9 @@ class EventEntityTest {
         "{" +
             "'attribute_a': 'param_a'," +
             "'attribute_b': {" +
-            "'obj_attribute_a': 'param_attribute_a'" +
-            "'obj_attribute_b': 'param_attribute_b'" +
-            "'obj_attribute_c': {" +
             "'var_obj_a': 'value_a'" +
             "'var_obj_b': 'value_b'" +
             "'var_obj_c': 'value_c'" +
-            "}" +
             "}" +
             "}",
         "APPROVER_USER'S_NAME",
