@@ -2,7 +2,7 @@ package br.com.zup.op.events.infra.validation
 
 class ApiFieldError (
     var message : String?,
-    var errors : List<FieldValidationCallback>
+    var errors : List<FieldValidationCallback>? = null
 ) {
     constructor(message: String, error: FieldValidationCallback) : this(message, arrayListOf<FieldValidationCallback>(error))
 }

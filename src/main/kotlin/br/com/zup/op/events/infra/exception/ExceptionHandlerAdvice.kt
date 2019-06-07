@@ -3,7 +3,6 @@ package br.com.zup.op.events.infra.exception
 import br.com.zup.op.events.infra.validation.ApiFieldError
 import br.com.zup.op.events.infra.validation.FieldValidationCallback
 import br.com.zup.op.events.infra.validation.InvalidFieldException
-import br.com.zup.op.events.infra.validation.KafkaSendFieldError
 import br.com.zup.op.events.infra.validation.SendPayloadException
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
@@ -20,10 +19,6 @@ class ExceptionHandlerAdvice {
     @ResponseBody
     fun handleInvalidField(request: HttpServletRequest, ex: InvalidFieldException): ResponseEntity<ApiFieldError> =
         ResponseEntity.badRequest().body(ex.apiFieldError)
-
-    @ExceptionHandler(SendPayloadException::class)
-    @ResponseBody
-    fun handleSendPayload(ex: SendPayloadException): ResponseEntity<KafkaSendFieldError> = ResponseEntity.badRequest().body(KafkaSendFieldError(ex.errorMessage))
 
     @ExceptionHandler(IllegalArgumentException::class)
     @ResponseBody
