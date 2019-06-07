@@ -13,6 +13,6 @@ interface EventManager {
 
     fun reasonList(): ArrayList<ReasonEntity>
 
-    fun topicList(): ArrayList<TopicEntiy>
+    fun listTopics(): ArrayList<TopicEntiy>
 
 }

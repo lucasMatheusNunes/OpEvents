@@ -6,6 +6,7 @@ import br.com.zup.op.events.domain.TopicEntiy
 import br.com.zup.op.events.interfaces.model.RepublishEventRequest
 import br.com.zup.op.events.interfaces.model.RepublishEventResponse
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
+@CrossOrigin(origins = ["http://localhost:3000", "http://localhost"]) // Enabling CORS only for the local application. We will be changing the address as soon as it is implemented for production.
 @RestController
 @RequestMapping("/events")
 class RepublishController(private val eventManager: EventManager) {
@@ -37,6 +39,6 @@ class RepublishController(private val eventManager: EventManager) {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     fun getTopicsList(): ArrayList<TopicEntiy> {
-        return eventManager.topicList()
+        return eventManager.listTopics()
     }
 }

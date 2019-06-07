@@ -49,8 +49,8 @@ class KafkaEventManagerTest {
 
         val result = this.eventManager.republish(entityTest)
         assertNotNull(result)
-        assertEquals(result.status, "PUBLISHED")
-        println("\n" + result.id + "\n" + result.status + "\n")
+        assertEquals(result.message, "Event Republish Success")
+        println("\n" + result.id + "\n" + result.message + "\n")
     }
 
 }

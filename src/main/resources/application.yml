@@ -8,8 +8,11 @@ spring:
   jpa:
     properties.hibernate.jdbc.lob.non_contextual_creation: true
   kafka:
+    consumer:
+      bootstrap.servers: "localhost:29092"
+      key.deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
+      value.deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
     brokers: 0.0.0.0:2181 #kafkahost:kafkaport
     producer:
       #bootstrapAddress: 0.0.0.0:2181
       bootstrap-servers: 0.0.0.0:9092
-

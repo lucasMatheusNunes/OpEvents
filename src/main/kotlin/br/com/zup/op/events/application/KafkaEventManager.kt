@@ -5,28 +5,22 @@ import br.com.zup.op.events.domain.EventRepository
 import br.com.zup.op.events.domain.ReasonEntity
 import br.com.zup.op.events.domain.ReasonRepository
 import br.com.zup.op.events.domain.TopicEntiy
-import br.com.zup.op.events.domain.TopicRepository
 import br.com.zup.op.events.interfaces.model.RepublishEventRequest
 import br.com.zup.op.events.interfaces.model.RepublishEventResponse
-import br.com.zup.op.events.producer.KafkaProducerConfig
 import com.fasterxml.jackson.databind.ObjectMapper
-import net.bytebuddy.asm.Advice
-import org.springframework.http.ResponseEntity
+import org.apache.kafka.clients.consumer.Consumer
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.support.SendResult
-
 import org.springframework.stereotype.Service
-import org.springframework.util.concurrent.ListenableFuture
 import org.springframework.util.concurrent.ListenableFutureCallback
 import org.springframework.web.client.HttpStatusCodeException
-import kotlin.collections.ArrayList
 
 @Service
 class KafkaEventManager(
-        private val eventRepository: EventRepository,
-        private val reasonRepository: ReasonRepository,
-        private val topicRepository: TopicRepository,
-        private val kafkaTemplate: KafkaTemplate<String, String>
+    private val eventRepository: EventRepository,
+    private val reasonRepository: ReasonRepository,
+    private val topicConsumer: Consumer<String, Any>,
+    private val kafkaTemplate: KafkaTemplate<String, String>
 ) : EventManager {
 
     private val objectMapper = ObjectMapper()
@@ -35,13 +29,21 @@ class KafkaEventManager(
         return reasonRepository.findAll() as ArrayList<ReasonEntity>
     }
 
-    override fun topicList(): ArrayList<TopicEntiy> {
-        return topicRepository.findAll() as ArrayList<TopicEntiy>
+    override fun listTopics(): ArrayList<TopicEntiy> {
+        var listTopics  = topicConsumer.listTopics()
+        val response = ArrayList<TopicEntiy>()
+
+        for((key) in listTopics){
+            val topic = TopicEntiy(key)
+
+            response.add(topic)
+        }
+
+        return response
     }
 
     override fun republish(request: RepublishEventRequest): RepublishEventResponse {
 
-        val topics = topicRepository.findAll()
         val reasons = reasonRepository.findAll()
         val eventEntity = EventEntity(
                 topic = request.topic,
@@ -52,7 +54,7 @@ class KafkaEventManager(
                 note = request.note
         )
         eventEntity.validateFields()
-        eventEntity.validateTopic(topics)
+        eventEntity.validateTopic(this.listTopics())
         eventEntity.validateReason(reasons)
         val future = kafkaTemplate.send(eventEntity.topic, eventEntity.payload)
 
@@ -71,9 +73,8 @@ class KafkaEventManager(
 
         })
         val savedEntity = this.eventRepository.save(eventEntity)
-        return RepublishEventResponse(savedEntity.id.toString(), "PUBLISHED")
+        return RepublishEventResponse(savedEntity.id.toString(), "Event Republish Success")
 
 
     }
 }
-
