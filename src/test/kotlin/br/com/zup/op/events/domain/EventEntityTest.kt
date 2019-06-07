@@ -17,14 +17,14 @@ import kotlin.collections.ArrayList
 @RunWith(SpringRunner::class)
 class EventEntityTest {
     private val logger: Logger = LoggerFactory.getLogger("Log EventEntityTest")
-    private val topicEntityEmptyList: ArrayList<TopicEntity> = arrayListOf()
-    private val topicEntityFullList: ArrayList<TopicEntity> =
+    private val topicEntityEmptyList: List<TopicEntity> = arrayListOf()
+    private val topicEntityFullList: List<TopicEntity> =
             arrayListOf(
                     TopicEntity("rw_A"),
                     TopicEntity("rw_B"),
                     TopicEntity("rw_C")
             )
-    private val reasons: ArrayList<ReasonEntity> = arrayListOf(
+    private val reasons: List<ReasonEntity> = arrayListOf(
             ReasonEntity("REASON_A"),
             ReasonEntity("REASON_B"),
             ReasonEntity("REASON_C")
