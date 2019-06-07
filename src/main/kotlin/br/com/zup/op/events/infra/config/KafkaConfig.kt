@@ -13,14 +13,11 @@ import org.springframework.kafka.core.ProducerFactory
 import java.util.*
 
 @Configuration
-class KafkaConfig {
-
-  @Autowired
-  private val consumerFactory: ConsumerFactory<String, Any>? = null
+class KafkaConfig(private val consumerFactory: ConsumerFactory<String, Any>) {
 
   @Bean
   fun consumerTopic(): Consumer<String, Any> {
-    return consumerFactory!!.createConsumer()
+    return consumerFactory.createConsumer()
   }
 
 }
