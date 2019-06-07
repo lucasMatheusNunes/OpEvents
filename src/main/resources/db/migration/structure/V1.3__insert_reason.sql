@@ -1,1 +1,0 @@
-INSERT INTO reason(name) VALUES('Reason_1');

@@ -4,8 +4,8 @@ data class RepublishEventRequest(
     val topic: String,
     val payload : Map<String, *>,
     val reason: String,
-    val user: String,
-    val key: String,
+    val user_id: String,
+    val _key: String,
     val note: String?
 )
 
@@ -14,4 +14,3 @@ data class RepublishEventResponse(
     val status: String
 )
 
-data class Kafka(val bootstrapServers: String)
