@@ -1,4 +1,4 @@
-package br.com.zup.op.events.infra.config
+package br.com.zup.op.events
 
 import org.apache.kafka.clients.consumer.Consumer
 import org.springframework.context.annotation.Bean
