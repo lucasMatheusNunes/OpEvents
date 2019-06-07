@@ -4,10 +4,9 @@ import br.com.zup.op.events.domain.EventEntity
 import br.com.zup.op.events.domain.EventRepository
 import br.com.zup.op.events.domain.ReasonEntity
 import br.com.zup.op.events.domain.ReasonRepository
-import br.com.zup.op.events.domain.TopicEntiy
+import br.com.zup.op.events.domain.TopicEntity
 import br.com.zup.op.events.infra.validation.ApiFieldError
-import br.com.zup.op.events.infra.validation.InvalidFieldException
-import br.com.zup.op.events.infra.validation.SendPayloadException
+import br.com.zup.op.events.infra.validation.FieldException
 import br.com.zup.op.events.interfaces.model.RepublishEventRequest
 import br.com.zup.op.events.interfaces.model.RepublishEventResponse
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -29,11 +28,11 @@ class KafkaEventManager(
         return reasonRepository.findAll()
     }
 
-    override fun listTopics(): List<TopicEntiy> {
+    override fun listTopics(): List<TopicEntity> {
         var listTopics = topicConsumer.listTopics()
-        val response = ArrayList<TopicEntiy>()
+        val response = ArrayList<TopicEntity>()
         for ((key) in listTopics) {
-            val topic = TopicEntiy(key)
+            val topic = TopicEntity(key)
             response.add(topic)
         }
         return response
@@ -56,7 +55,7 @@ class KafkaEventManager(
             val result = kafkaTemplate.send(eventEntity.topic, eventEntity.payload).completable().join()
             eventRepository.save(eventEntity).id.toString()
         } catch (e: Exception) {
-            throw InvalidFieldException(ApiFieldError("Error in send of event for apache kafka"))
+            throw FieldException(ApiFieldError("Error in send of event for apache kafka"))
         }
         return RepublishEventResponse(eventEntity.id.toString(), "Event Republish Success")
     }

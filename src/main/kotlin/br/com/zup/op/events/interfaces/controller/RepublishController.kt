@@ -2,7 +2,7 @@ package br.com.zup.op.events.interfaces.controller
 
 import br.com.zup.op.events.application.EventManager
 import br.com.zup.op.events.domain.ReasonEntity
-import br.com.zup.op.events.domain.TopicEntiy
+import br.com.zup.op.events.domain.TopicEntity
 import br.com.zup.op.events.interfaces.model.RepublishEventRequest
 import br.com.zup.op.events.interfaces.model.RepublishEventResponse
 import org.springframework.http.HttpStatus
@@ -38,7 +38,7 @@ class RepublishController(private val eventManager: EventManager) {
     @GetMapping("/topics")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    fun getTopicsList(): List<TopicEntiy> {
+    fun getTopicsList(): List<TopicEntity> {
         return eventManager.listTopics()
     }
 }

@@ -49,10 +49,10 @@ data class EventEntity(
       list.firstOrNull { it == ReasonEntity(this.reason) } ?: throw IllegalArgumentException("$reason not found")
   }
 
-    fun validateTopic(list: List<TopicEntiy>) {
+    fun validateTopic(list: List<TopicEntity>) {
         //Example for future implementation of topic in blacklist
         //if(!this.topic.startsWith("rw_")) throw java.lang.IllegalArgumentException("Topic $topic is invalid name")
 
-        list.firstOrNull { it == TopicEntiy(this.topic) } ?: throw IllegalArgumentException("Topic $topic not found")
+        list.firstOrNull { it == TopicEntity(this.topic) } ?: throw IllegalArgumentException("Topic $topic not found")
     }
 }

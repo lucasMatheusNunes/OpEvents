@@ -1,6 +1,6 @@
 package br.com.zup.op.events.domain
 
-import br.com.zup.op.events.infra.validation.InvalidFieldException
+import br.com.zup.op.events.infra.validation.FieldException
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -17,12 +17,12 @@ import kotlin.collections.ArrayList
 @RunWith(SpringRunner::class)
 class EventEntityTest {
     private val logger: Logger = LoggerFactory.getLogger("Log EventEntityTest")
-    private val topicEntityEmptyList: ArrayList<TopicEntiy> = arrayListOf()
-    private val topicEntityFullList: ArrayList<TopicEntiy> =
+    private val topicEntityEmptyList: ArrayList<TopicEntity> = arrayListOf()
+    private val topicEntityFullList: ArrayList<TopicEntity> =
             arrayListOf(
-                    TopicEntiy("rw_A"),
-                    TopicEntiy("rw_B"),
-                    TopicEntiy("rw_C")
+                    TopicEntity("rw_A"),
+                    TopicEntity("rw_B"),
+                    TopicEntity("rw_C")
             )
     private val reasons: ArrayList<ReasonEntity> = arrayListOf(
             ReasonEntity("REASON_A"),
@@ -59,7 +59,7 @@ class EventEntityTest {
         eventEntity.validateTopic(topicEntityEmptyList)
     }
 
-    @Test(expected = InvalidFieldException::class)
+    @Test(expected = FieldException::class)
     fun `should accept the validation when payload and user is blank`() {
         logger.info("Testing: should accept the validation when payload and user is blank")
 

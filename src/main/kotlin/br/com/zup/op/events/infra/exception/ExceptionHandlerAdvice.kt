@@ -2,8 +2,7 @@ package br.com.zup.op.events.infra.exception
 
 import br.com.zup.op.events.infra.validation.ApiFieldError
 import br.com.zup.op.events.infra.validation.FieldValidationCallback
-import br.com.zup.op.events.infra.validation.InvalidFieldException
-import br.com.zup.op.events.infra.validation.SendPayloadException
+import br.com.zup.op.events.infra.validation.FieldException
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
 import org.springframework.http.ResponseEntity
@@ -15,9 +14,9 @@ import javax.servlet.http.HttpServletRequest
 @ControllerAdvice
 class ExceptionHandlerAdvice {
 
-    @ExceptionHandler(InvalidFieldException::class)
+    @ExceptionHandler(FieldException::class)
     @ResponseBody
-    fun handleInvalidField(request: HttpServletRequest, ex: InvalidFieldException): ResponseEntity<ApiFieldError> =
+    fun handleInvalidField(request: HttpServletRequest, ex: FieldException): ResponseEntity<ApiFieldError> =
         ResponseEntity.badRequest().body(ex.apiFieldError)
 
     @ExceptionHandler(IllegalArgumentException::class)
