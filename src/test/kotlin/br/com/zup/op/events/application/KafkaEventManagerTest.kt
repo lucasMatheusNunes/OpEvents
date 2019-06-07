@@ -1,6 +1,5 @@
 package br.com.zup.op.events.application
 
-import br.com.zup.op.events.domain.EventEntity
 import br.com.zup.op.events.interfaces.model.RepublishEventRequest
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue

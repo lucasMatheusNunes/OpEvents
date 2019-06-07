@@ -5,18 +5,13 @@ import br.com.zup.op.events.domain.EventRepository
 import br.com.zup.op.events.domain.ReasonEntity
 import br.com.zup.op.events.domain.ReasonRepository
 import br.com.zup.op.events.domain.TopicEntiy
-import br.com.zup.op.events.infra.validation.InvalidFieldException
 import br.com.zup.op.events.infra.validation.SendPayloadException
 import br.com.zup.op.events.interfaces.model.RepublishEventRequest
 import br.com.zup.op.events.interfaces.model.RepublishEventResponse
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.apache.kafka.clients.consumer.Consumer
 import org.springframework.kafka.core.KafkaTemplate
-import org.springframework.kafka.support.SendResult
 import org.springframework.stereotype.Service
-import org.springframework.util.concurrent.ListenableFutureCallback
-import org.springframework.web.client.HttpStatusCodeException
-import java.lang.IllegalArgumentException
 
 @Service
 class KafkaEventManager(
