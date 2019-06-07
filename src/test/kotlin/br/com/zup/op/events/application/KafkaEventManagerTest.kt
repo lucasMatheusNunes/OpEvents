@@ -20,43 +20,37 @@ import java.io.File
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class KafkaEventManagerTest {
-  private val logger: Logger = LoggerFactory.getLogger("Log KafkaEventManagerTest")
+    private val logger: Logger = LoggerFactory.getLogger("Log KafkaEventManagerTest")
 
-  @Autowired
-  lateinit var eventManager: KafkaEventManager
+    @Autowired
+    lateinit var eventManager: KafkaEventManager
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(eventManager)
     }
 
-  @Test
-  fun republishSuccessTest() {
-    logger.info("Testing: should result in successful requisition")
+    @Test
+    fun republishSuccessTest() {
+        logger.info("Testing: should result in successful requisition")
+        val jsonInput = File("./src/test/resources/payload.json").readText()
+        val typeRef: Map<String, *>
 
+        typeRef = jacksonObjectMapper().readValue(jsonInput)
 
+        val entityTest = RepublishEventRequest(
+                "rw_1",
+                typeRef,
+                "Reason_1",
+                "APPROVER_USER'S_NAME",
+                "ertyertye",
+                "t"
+        )
 
-   val payload = jacksonObjectMapper().readValue<String>(File("./src/test/resources/payload.json").readText())
-
-
-      val jsonInput = File("./src/test/resources/payload.json").readText()
-      val typeRef : Map<String, *>
-
-      typeRef = jacksonObjectMapper().readValue(jsonInput)
-
-    val entityTest = RepublishEventRequest(
-        "rw_1",
-        typeRef,
-        "Reason_1",
-        "APPROVER_USER'S_NAME",
-        "ertyertye",
-        ""
-    )
-
-    val result = this.eventManager!!.republish(entityTest)
-    assertNotNull(result)
-    assertEquals(result.message, "PUBLISHED")
-    println("\n" + result.id + "\n" + result.message + "\n")
-  }
+        val result = this.eventManager.republish(entityTest)
+        assertNotNull(result)
+        assertEquals(result.message, "Event Republish Success")
+        println("\n" + result.id + "\n" + result.message + "\n")
+    }
 
 }

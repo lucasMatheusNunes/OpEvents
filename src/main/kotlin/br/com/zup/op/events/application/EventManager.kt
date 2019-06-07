@@ -9,8 +9,6 @@ import org.springframework.util.concurrent.ListenableFutureCallback
 
 interface EventManager {
 
-
-
     fun republish(request: RepublishEventRequest): RepublishEventResponse
 
     fun reasonList(): ArrayList<ReasonEntity>
