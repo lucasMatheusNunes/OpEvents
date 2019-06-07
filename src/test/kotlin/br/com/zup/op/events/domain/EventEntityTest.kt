@@ -1,6 +1,6 @@
 package br.com.zup.op.events.domain
 
-import br.com.zup.op.events.infra.validation.FieldException
+import br.com.zup.op.events.infra.validation.ApplicationException
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -59,7 +59,7 @@ class EventEntityTest {
         eventEntity.validateTopic(topicEntityEmptyList)
     }
 
-    @Test(expected = FieldException::class)
+    @Test(expected = ApplicationException::class)
     fun `should accept the validation when payload and user is blank`() {
         logger.info("Testing: should accept the validation when payload and user is blank")
 
