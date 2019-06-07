@@ -1,4 +1,4 @@
-package br.com.zup.op.events.producer
+package br.com.zup.op.events.infra.config
 
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.producer.ProducerConfig
@@ -13,33 +13,14 @@ import org.springframework.kafka.core.ProducerFactory
 import java.util.*
 
 @Configuration
-class KafkaProducerConfig {
+class KafkaConfig {
 
   @Autowired
   private val consumerFactory: ConsumerFactory<String, Any>? = null
 
-  val bootstrapAddress: String = "localhost:2181"
-
-  @Bean
-  fun producerFactory(): ProducerFactory<String, String> {
-    val configProps = HashMap<String, Any>()
-    configProps[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapAddress
-    configProps[ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
-    configProps[ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
-    return DefaultKafkaProducerFactory(configProps)
-  }
-
-  @Bean
-  fun kafkaTemplate(): KafkaTemplate<String, String> {
-    return KafkaTemplate(producerFactory())
-  }
-
-
   @Bean
   fun consumerTopic(): Consumer<String, Any> {
-    return this.consumerFactory!!.createConsumer()
+    return consumerFactory!!.createConsumer()
   }
 
 }
-
-

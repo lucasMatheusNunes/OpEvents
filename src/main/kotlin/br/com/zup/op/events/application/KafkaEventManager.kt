@@ -49,7 +49,7 @@ class KafkaEventManager(
             val savedEntity = this.eventRepository.save(eventEntity)
             println("\n" + future + "\n")
 
-            return RepublishEventResponse(savedEntity.id.toString(), "PUBLISHED")
+            return RepublishEventResponse(savedEntity.id.toString(), "Event Republish Success")
         }
 
         override fun listTopics(): ArrayList<TopicEntiy> {
