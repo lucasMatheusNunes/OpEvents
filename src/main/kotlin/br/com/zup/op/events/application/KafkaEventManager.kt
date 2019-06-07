@@ -5,6 +5,8 @@ import br.com.zup.op.events.domain.EventRepository
 import br.com.zup.op.events.domain.ReasonEntity
 import br.com.zup.op.events.domain.ReasonRepository
 import br.com.zup.op.events.domain.TopicEntiy
+import br.com.zup.op.events.infra.validation.InvalidFieldException
+import br.com.zup.op.events.infra.validation.SendPayloadException
 import br.com.zup.op.events.interfaces.model.RepublishEventRequest
 import br.com.zup.op.events.interfaces.model.RepublishEventResponse
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -14,6 +16,7 @@ import org.springframework.kafka.support.SendResult
 import org.springframework.stereotype.Service
 import org.springframework.util.concurrent.ListenableFutureCallback
 import org.springframework.web.client.HttpStatusCodeException
+import java.lang.IllegalArgumentException
 
 @Service
 class KafkaEventManager(
@@ -44,6 +47,7 @@ class KafkaEventManager(
 
     override fun republish(request: RepublishEventRequest): RepublishEventResponse {
 
+        var idEvent = ""
         val reasons = reasonRepository.findAll()
         val eventEntity = EventEntity(
                 topic = request.topic,
@@ -57,30 +61,13 @@ class KafkaEventManager(
         eventEntity.validateTopic(this.listTopics())
         eventEntity.validateReason(reasons)
 
-        val thread : Thread = Thread( Runnable {
-            val future = kafkaTemplate.send(eventEntity.topic, eventEntity.payload)
+        try {
+            val result = kafkaTemplate.send(eventEntity.topic, eventEntity.payload).completable().join()
+            idEvent = eventRepository.save(eventEntity).id.toString()
+        }catch (e: Exception){
+            throw SendPayloadException()
+        }
 
-            future.addCallback(object : ListenableFutureCallback<SendResult<String, String>> {
-
-                override fun onSuccess(result: SendResult<String, String>?) {
-                    //val savedEntity = eventRepository.save(eventEntity)
-                }
-
-                override fun onFailure(ex: Throwable) {
-                    ex.printStackTrace()
-                    if (ex is HttpStatusCodeException) {
-                        println(ex.responseBodyAsString)
-                    }
-                }
-
-            })
-        })
-
-        thread.join()
-
-        val savedEntity = this.eventRepository.save(eventEntity)
-        return RepublishEventResponse(savedEntity.id.toString(), "Event Republish Success")
-
-
+        return RepublishEventResponse(idEvent, "Event Republish Success")
     }
 }
