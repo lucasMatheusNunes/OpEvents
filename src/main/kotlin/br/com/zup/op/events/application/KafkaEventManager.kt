@@ -28,14 +28,9 @@ class KafkaEventManager(
         return reasonRepository.findAll()
     }
 
-    override fun listTopics(): List<TopicEntity> {
-        var listTopics = topicConsumer.listTopics()
-        val response = ArrayList<TopicEntity>()
-        for ((key) in listTopics) {
-            val topic = TopicEntity(key)
-            response.add(topic)
-        }
-        return response
+    override fun listTopics(): List<TopicEntiy> {
+        val topics = topicConsumer.listTopics()
+        return topics.map { TopicEntiy(it.key) }
     }
 
     override fun republish(request: RepublishEventRequest): RepublishEventResponse {
