@@ -56,22 +56,28 @@ class KafkaEventManager(
         eventEntity.validateFields()
         eventEntity.validateTopic(this.listTopics())
         eventEntity.validateReason(reasons)
-        val future = kafkaTemplate.send(eventEntity.topic, eventEntity.payload)
 
-        future.addCallback(object : ListenableFutureCallback<SendResult<String, String>> {
+        val thread : Thread = Thread( Runnable {
+            val future = kafkaTemplate.send(eventEntity.topic, eventEntity.payload)
 
-            override fun onSuccess(result: SendResult<String, String>?) {
-                //val savedEntity = eventRepository.save(eventEntity)
-            }
+            future.addCallback(object : ListenableFutureCallback<SendResult<String, String>> {
 
-            override fun onFailure(ex: Throwable) {
-                ex.printStackTrace()
-                if (ex is HttpStatusCodeException) {
-                    println(ex.responseBodyAsString)
+                override fun onSuccess(result: SendResult<String, String>?) {
+                    //val savedEntity = eventRepository.save(eventEntity)
                 }
-            }
 
+                override fun onFailure(ex: Throwable) {
+                    ex.printStackTrace()
+                    if (ex is HttpStatusCodeException) {
+                        println(ex.responseBodyAsString)
+                    }
+                }
+
+            })
         })
+
+        thread.join()
+
         val savedEntity = this.eventRepository.save(eventEntity)
         return RepublishEventResponse(savedEntity.id.toString(), "Event Republish Success")
 
