@@ -10,11 +10,15 @@ import br.com.zup.op.events.interfaces.model.RepublishEventRequest
 import br.com.zup.op.events.interfaces.model.RepublishEventResponse
 import br.com.zup.op.events.producer.KafkaProducerConfig
 import com.fasterxml.jackson.databind.ObjectMapper
+import net.bytebuddy.asm.Advice
+import org.springframework.http.ResponseEntity
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.support.SendResult
 
 import org.springframework.stereotype.Service
+import org.springframework.util.concurrent.ListenableFuture
 import org.springframework.util.concurrent.ListenableFutureCallback
+import org.springframework.web.client.HttpStatusCodeException
 import kotlin.collections.ArrayList
 
 @Service
@@ -50,19 +54,26 @@ class KafkaEventManager(
         eventEntity.validateFields()
         eventEntity.validateTopic(topics)
         eventEntity.validateReason(reasons)
-        val future = kafkaTemplate.send(eventEntity.topic,  eventEntity.payload)
+        val future = kafkaTemplate.send(eventEntity.topic, eventEntity.payload)
 
-        //val result : ListenableFutureCallback<SendResult<String, String>>
+        future.addCallback(object : ListenableFutureCallback<SendResult<String, String>> {
 
-        //persist
+            override fun onSuccess(result: SendResult<String, String>?) {
+                //val savedEntity = eventRepository.save(eventEntity)
+            }
+
+            override fun onFailure(ex: Throwable) {
+                ex.printStackTrace()
+                if (ex is HttpStatusCodeException) {
+                    println(ex.responseBodyAsString)
+                }
+            }
+
+        })
         val savedEntity = this.eventRepository.save(eventEntity)
-        println("\n" + future + "\n")
-
         return RepublishEventResponse(savedEntity.id.toString(), "PUBLISHED")
 
 
-        }
-
-
-
+    }
 }
+

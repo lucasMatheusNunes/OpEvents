@@ -30,13 +30,13 @@ class RepublishController(private val eventManager: EventManager) {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     fun getReasonsList(): ArrayList<ReasonEntity> {
-        return eventManager!!.reasonList()
+        return eventManager.reasonList()
     }
 
     @GetMapping("/topics")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     fun getTopicsList(): ArrayList<TopicEntiy> {
-        return eventManager!!.topicList()
+        return eventManager.topicList()
     }
 }

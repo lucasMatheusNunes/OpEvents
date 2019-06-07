@@ -8,6 +8,7 @@ import org.junit.runner.RunWith
 import org.mockito.MockitoAnnotations
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import java.io.File
 import java.util.*
@@ -67,23 +68,9 @@ class EventEntityTest {
         eventEntity.validateFields()
     }
 
-    @Test(expected = InvalidFieldException::class)
-    fun `should accept the validation when payload is invalid format`() {
-        logger.info("Testing: should accept the validation when payload is invalid format")
-
-        val eventEntity = EventEntity(
-                topic = "rw_A",
-                payload = File("./src/test/resources/invalidPayload.json").readText(),
-                reason = "REASON_A",
-                user_id = "lucas.nunes@zup.com.br",
-                _key = "abcdfghij3493",
-                note = ""
-        )
-        eventEntity.validateFields()
-    }
 
     @Test
-    fun isReasonValidTest() {
+    fun `should accept the validation when reason is exists`() {
         println("\n\n Test of reason validity \n\n")
         val entityTest = EventEntity(
                 UUID.randomUUID(),
@@ -105,7 +92,7 @@ class EventEntityTest {
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun isInvalidReasonTest() {
+    fun `should reprove the validation when reason is not exists`() {
         println("\n\n Test of reason validity \n\n")
 
         val entityTest = EventEntity(
@@ -116,6 +103,6 @@ class EventEntityTest {
                 _key = "abcdfghij3493",
                 note = ""
         )
-        entityTest!!.validateReason(reasons)
+        entityTest.validateReason(reasons)
     }
 }

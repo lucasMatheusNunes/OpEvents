@@ -36,7 +36,6 @@ data class EventEntity(
     @ApiModelProperty(notes = "Approver user", example = "John Smith", required = true)
     val user_id: String,
     @ApiModelProperty(notes = "Note regarding the event", example = "", required = false)
-    @field:[NotEmpty]
     val note: String?,
     @field:NotEmpty
     val _key: String
