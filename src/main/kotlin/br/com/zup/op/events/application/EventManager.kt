@@ -9,8 +9,8 @@ interface EventManager {
 
     fun republish(request: RepublishEventRequest): RepublishEventResponse
 
-    fun reasonList(): ArrayList<ReasonEntity>
+    fun listReasons(): List<ReasonEntity>
 
-    fun listTopics(): ArrayList<TopicEntiy>
+    fun listTopics(): List<TopicEntiy>
 
 }

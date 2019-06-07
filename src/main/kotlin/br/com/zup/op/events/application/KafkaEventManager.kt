@@ -15,28 +15,25 @@ import org.springframework.stereotype.Service
 
 @Service
 class KafkaEventManager(
-    private val eventRepository: EventRepository,
-    private val reasonRepository: ReasonRepository,
-    private val topicConsumer: Consumer<String, Any>,
-    private val kafkaTemplate: KafkaTemplate<String, String>
+        private val eventRepository: EventRepository,
+        private val reasonRepository: ReasonRepository,
+        private val topicConsumer: Consumer<String, Any>,
+        private val kafkaTemplate: KafkaTemplate<String, String>
 ) : EventManager {
 
     private val objectMapper = ObjectMapper()
 
-    override fun reasonList(): ArrayList<ReasonEntity> {
-        return reasonRepository.findAll() as ArrayList<ReasonEntity>
+    override fun listReasons(): List<ReasonEntity> {
+        return reasonRepository.findAll()
     }
 
-    override fun listTopics(): ArrayList<TopicEntiy> {
-        var listTopics  = topicConsumer.listTopics()
+    override fun listTopics(): List<TopicEntiy> {
+        var listTopics = topicConsumer.listTopics()
         val response = ArrayList<TopicEntiy>()
-
-        for((key) in listTopics){
+        for ((key) in listTopics) {
             val topic = TopicEntiy(key)
-
             response.add(topic)
         }
-
         return response
     }
 
@@ -59,7 +56,7 @@ class KafkaEventManager(
         try {
             val result = kafkaTemplate.send(eventEntity.topic, eventEntity.payload).completable().join()
             idEvent = eventRepository.save(eventEntity).id.toString()
-        }catch (e: Exception){
+        } catch (e: Exception) {
             throw SendPayloadException()
         }
 
