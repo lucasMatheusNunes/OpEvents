@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
-@CrossOrigin(origins = ["http://localhost:3000", "http://localhost:5000"]) // Enabling CORS only for the local application. We will be changing the address as soon as it is implemented for production.
+@CrossOrigin(origins = ["http://localhost:3000", "http://localhost"]) // Enabling CORS only for the local application. We will be changing the address as soon as it is implemented for production.
 @RestController
 @RequestMapping("/events")
 class RepublishController(private val eventManager: EventManager) {
