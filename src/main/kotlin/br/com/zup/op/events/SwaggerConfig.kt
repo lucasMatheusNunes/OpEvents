@@ -39,7 +39,7 @@ class SwaggerConfig {
         .build()
   }
 
-  private fun apiInfo(version: String): ApiInfo? {
+  private fun apiInfo(version: String): ApiInfo {
     return ApiInfoBuilder()
         .title("API - Republish Events")
         .description("Republish operations of events Kafka")

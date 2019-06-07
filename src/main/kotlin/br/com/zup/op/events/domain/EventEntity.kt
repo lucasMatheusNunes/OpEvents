@@ -11,43 +11,32 @@ import javax.persistence.Id
 import javax.persistence.Table
 import javax.validation.constraints.NotEmpty
 
-
 @Entity
 @Table(name = "event")
-@ApiModel(description = "Class representing a person entity that makes payments")
 data class EventEntity(
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: UUID? = UUID.randomUUID(),
-
-    @ApiModelProperty(notes = "Title of topic", example = "TOPIC_A", required = true)
-    @field:[NotEmpty]
-    val topic: String,
-    @ApiModelProperty(notes = "Title of reason", example = "REASON_A", required = true)
-    @field:[NotEmpty]
-    val reason: String,
-    @ApiModelProperty(
-        notes = "JSON Object of republish",
-        example = "{\"key1\":\"value1\",\"key2\":\"value2\",\"key3\":\"value3\"}",
-        required = true)
-    @field:[NotEmpty]
-    val payload: String,
-    @ApiModelProperty(notes = "Approver user", example = "John Smith", required = false)
-    val user_id: String?,
-    @ApiModelProperty(notes = "Note regarding the event", example = "", required = false)
-    val note: String?,
-    @field:NotEmpty
-    val _key: String
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        val id: UUID? = UUID.randomUUID(),
+        @field:[NotEmpty]
+        val topic: String,
+        @field:[NotEmpty]
+        val reason: String,
+        @field:[NotEmpty]
+        val payload: String,
+        val user_id: String,
+        @field:NotEmpty
+        val _key: String,
+        val note: String?
 
 ) {
 
     fun validateFields() =
-        AnnotationFieldsValidation().validFields(this)
+            AnnotationFieldsValidation().validFields(this)
 
-  fun validateReason(list: List<ReasonEntity>) {
-      list.firstOrNull { it == ReasonEntity(this.reason) } ?: throw IllegalArgumentException("$reason not found")
-  }
+    fun validateReason(list: List<ReasonEntity>) {
+        list.firstOrNull { it == ReasonEntity(this.reason) } ?: throw IllegalArgumentException("$reason not found")
+    }
 
     fun validateTopic(list: List<TopicEntity>) {
         //Example for future implementation of topic in blacklist
