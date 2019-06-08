@@ -3,13 +3,13 @@ package br.com.zup.op.events.interfaces.model
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 
-@ApiModel(description = "Class that represents an event publishing request entity")
+@ApiModel(description = "Class that represents an event republishing request entity.")
 data class RepublishEventRequest(
 
         @ApiModelProperty(notes = "Title of topic", example = "TOPIC_A",  required = true)
         val topic: String,
 
-        @ApiModelProperty(notes = "JSON Object of republish", required = true)
+        @ApiModelProperty(notes = "JSON payload Object of republish", required = true)
         val payload: Map<String, *>,
 
         @ApiModelProperty(notes = "Title of reason", example = "REASON_A", required = true)
