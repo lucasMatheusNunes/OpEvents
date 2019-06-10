@@ -30,3 +30,4 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_ADVERTISED_HOST_NAME: localhost
 
+      KAFKA_CREATE_TOPICS: "rw_2"

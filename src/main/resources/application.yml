@@ -8,5 +8,5 @@ spring:
   jpa:
     properties.hibernate.jdbc.lob.non_contextual_creation: true
   kafka:
-    producer:
-      bootstrap-servers: 0.0.0.0:9092
+    #producer:
+    bootstrap-servers: 0.0.0.0:9092
