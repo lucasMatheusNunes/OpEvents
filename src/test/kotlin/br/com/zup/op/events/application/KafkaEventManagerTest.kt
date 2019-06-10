@@ -1,6 +1,5 @@
 package br.com.zup.op.events.application
 
-import br.com.zup.op.events.EventManagerApplicationTests
 import br.com.zup.op.events.interfaces.model.RepublishEventRequest
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -27,9 +26,7 @@ class KafkaEventManagerTest {
     fun `should result in successful requisition`() {
         logger.info("Testing: should result in successful requisition\n")
         val jsonInput = File("./src/test/resources/payload.json").readText()
-        val typeRef: Map<String, *>
-
-        typeRef = jacksonObjectMapper().readValue(jsonInput)
+        val typeRef: Map<String, *> = jacksonObjectMapper().readValue(jsonInput)
 
         val entityTest = RepublishEventRequest(
                 "rw_1",
