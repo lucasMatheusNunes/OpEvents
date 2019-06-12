@@ -31,3 +31,5 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: localhost
 
       KAFKA_CREATE_TOPICS: "rw_2"
+
+

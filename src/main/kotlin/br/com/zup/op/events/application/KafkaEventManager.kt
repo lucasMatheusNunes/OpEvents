@@ -49,6 +49,7 @@ class KafkaEventManager(
         eventEntity.validateReason(reasons)
         try {
             kafkaTemplate.send(eventEntity.topic, eventEntity.payload).completable().join()
+            kafkaTemplate.flush()
             eventRepository.save(eventEntity).id.toString()
         } catch (e: Exception) {
             throw ApplicationException(ApplicationField("Error in send of event for apache kafka"))
