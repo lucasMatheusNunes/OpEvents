@@ -19,8 +19,14 @@ The project is hosted over on GitHub. To clone it, simply run the following comm
 
 ## Installation
 
-To execute the project, it's necessary to run the following command in the project root: `docker-compose up`
+To execute the project, it's necessary to run the following command in the project root: 
 
+`docker-compose up`
+
+`mvn install` 
+ 
+ `java -jar ./target/event-manager-0.0.1-SNAPSHOT.jar
+`
 ***
 
 ## Docs
@@ -52,20 +58,15 @@ For more info about this application, after run docker-compose, access the Swagg
 
 *** 
 
-<p algn="right">
+<p>
 
 <img src='icon/zup.png' width=5%>
 <img src="icon/kotlin-icon.png" width=5%>
-
 <img src= 'icon/spring-icon.png' width= 5%> 
-
 <img src= 'icon/kafka-icon.png' width=3%> 
-
 <img src= 'icon/posgres-icon.png' width=5%>
 <img src= 'icon/flyway.png' width=5%>
-
 <img src= 'icon/swagger-icon.png' width=5%>
-
 <img src= 'icon/github.png' width=5%>
 
 </p>
