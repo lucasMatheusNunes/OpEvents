@@ -29,6 +29,6 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_ZOOKEEPER_CONNECT: localhost:2181
       KAFKA_ADVERTISED_HOST_NAME: localhost
-      KAFKA_CREATE_TOPICS: "rw_1:2:1"
+      KAFKA_CREATE_TOPICS: "test:1:1, rw_1:1:1"
 
 

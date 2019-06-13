@@ -35,14 +35,33 @@ class KafkaEventManagerTest() {
                 "test",
                 typeRef,
                 "Reason_1",
-                "APPROVER_USER'S_NAME",
-                "ertyertye",
+                "APPROVAL_USER'S_NAME",
+                "test-key",
                 "t"
         )
         val result = this.eventManager.republish(entityTest)
         assertNotNull(result)
         assertEquals(result.message, "Event Republish Success")
         logger.info(result.message + "! ID: " + result.id)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `should result in error requisition`() {
+
+        logger.info("Testing: should result in error requisition\n")
+        val jsonInput = File("./src/test/resources/payload.json").readText()
+        val typeRef: Map<String, *> = jacksonObjectMapper().readValue(jsonInput)
+        val entityTest = RepublishEventRequest(
+                "not-exist",
+                typeRef,
+                "Reason_1",
+                "APPROVAL_USER'S_NAME",
+                "test-key",
+                "t"
+        )
+        val result = this.eventManager.republish(entityTest)
+        AssertionError(result)
+        logger.info(result.message + "!  ")
     }
 
 
