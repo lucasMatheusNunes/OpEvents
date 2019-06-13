@@ -65,20 +65,12 @@ class EventEntityTest() {
         logger.info("Testing: should accept the validation when reason is exists\n")
 
         val entityTest = EventEntity(
-                UUID.randomUUID(),
-                "TOPIC_A",
-                "REASON_A",
-                "{" +
-                        "'attribute_a': 'param_a'," +
-                        "'attribute_b': {" +
-                        "'var_obj_a': 'value_a'" +
-                        "'var_obj_b': 'value_b'" +
-                        "'var_obj_c': 'value_c'" +
-                        "}" +
-                        "}",
-                "APPROVER_USER'S_NAME",
-                "",
-                ""
+                topic = "rw_A",
+                payload = File("./src/test/resources/invalidPayload.json").readText(),
+                reason = "REASON_A",
+                user_id = "lucas.nunes@zup.com.br",
+                _key = "abcdfghij3493",
+                note = ""
         )
         Assert.assertTrue(entityTest.validateReason(reasons) is Unit)
     }
