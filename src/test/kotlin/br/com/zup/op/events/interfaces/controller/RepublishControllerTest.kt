@@ -1,9 +1,11 @@
 package br.com.zup.op.events.interfaces.controller
 
 
+import br.com.zup.op.events.application.KafkaConsumerForTest
 import br.com.zup.op.events.interfaces.model.RepublishEventRequest
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,6 +24,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import java.io.File
+import java.util.concurrent.TimeUnit
+
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -35,6 +39,9 @@ class RepublishControllerTest {
     @Autowired
     private lateinit var controller: RepublishController
 
+    @Autowired
+    lateinit var consumer: KafkaConsumerForTest
+
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
@@ -44,8 +51,9 @@ class RepublishControllerTest {
     }
 
     @Test
-    fun `should result in successful requisition`() {
-        logger.info("Testing: should result in successful requisition\n")
+    fun `should result in successful if requisition is consumed`() {
+
+        logger.info("Testing: should result in successful if requisition is consumed\n")
         val jsonInput = File("./src/test/resources/payload.json").readText()
         val typeRef: Map<String, *> = jacksonObjectMapper().readValue(jsonInput)
         val entityTest = RepublishEventRequest(
@@ -63,6 +71,12 @@ class RepublishControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn()
+        var jsonConsumed = jsonInput.replace("\n", "")
+        jsonConsumed = jsonConsumed.replace(" ", "")
+        consumer.latch.await(6000, TimeUnit.MILLISECONDS);
+        assertThat(consumer.latch.count).isEqualTo(0);
+        assertThat(consumer.receiving).isEqualTo(jsonConsumed)
+        logger.info("\nsuccessful requisition and consuming\n${consumer.receiving}\n")
     }
 
     @Test

@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import java.io.File
 
-
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class KafkaEventManagerTest() {
@@ -23,7 +22,6 @@ class KafkaEventManagerTest() {
 
     @Autowired
     lateinit var eventManager: KafkaEventManager
-
 
     @Test
     fun `should result in successful requisition`() {

@@ -14,3 +14,4 @@ class KafkaConfig(private val consumerFactory: ConsumerFactory<String, Any>) {
   }
 
 }
+
