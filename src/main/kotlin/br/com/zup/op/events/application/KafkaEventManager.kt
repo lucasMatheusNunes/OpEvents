@@ -34,7 +34,7 @@ class KafkaEventManager(
     }
 
     override fun republish(request: RepublishEventRequest): RepublishEventResponse {
-        val reasons = reasonRepository.findAll()
+        val reasons = this.listReasons()
         val topics = this.listTopics()
         val eventEntity = EventEntity(
             topic = request.topic,
@@ -48,7 +48,7 @@ class KafkaEventManager(
         eventEntity.validateTopic(topics)
         eventEntity.validateReason(reasons)
         try {
-            kafkaTemplate.send(eventEntity.topic, eventEntity.payload).completable().join()
+            kafkaTemplate.send(eventEntity.topic, eventEntity._key, eventEntity.payload).completable().join()
             kafkaTemplate.flush()
             eventRepository.save(eventEntity).id.toString()
         } catch (e: Exception) {
