@@ -31,7 +31,7 @@ import java.io.File
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-@EmbeddedKafka
+
 
 class RepublishControllerTest {
     private val logger: Logger = LoggerFactory.getLogger(RepublishControllerTest::class.java)
@@ -67,7 +67,7 @@ class RepublishControllerTest {
                 "",
                 "t"
         )
-        var jsonData = jacksonObjectMapper().writeValueAsString(entityTest)
+        val jsonData = jacksonObjectMapper().writeValueAsString(entityTest)
         this.mvc.perform(MockMvcRequestBuilders.post("/events")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonData))
@@ -85,13 +85,13 @@ class RepublishControllerTest {
                 "key-msg",
                 "t"
         )
-        var republishEventRequest = jacksonObjectMapper().writeValueAsString(eventTest)
+        val republishEventRequest = jacksonObjectMapper().writeValueAsString(eventTest)
         this.mvc.perform(MockMvcRequestBuilders.post("/events")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(republishEventRequest))
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andDo(MockMvcResultHandlers.print())
-        var consumedPayload = File("./src/test/resources/payload.json")
+        val consumedPayload = File("./src/test/resources/payload.json")
                 .readText()
                 .replace("\n", "")
                 .replace(" ", "")
@@ -114,7 +114,7 @@ class RepublishControllerTest {
                 "key-msg",
                 "t"
         )
-        var republishEventRequest = jacksonObjectMapper().writeValueAsString(entityTest)
+        val republishEventRequest = jacksonObjectMapper().writeValueAsString(entityTest)
         this.mvc.perform(MockMvcRequestBuilders.post("/events")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(republishEventRequest))
@@ -133,7 +133,7 @@ class RepublishControllerTest {
                 "key-msg",
                 "t"
         )
-        var republishEventRequest = jacksonObjectMapper().writeValueAsString(entityTest)
+        val republishEventRequest = jacksonObjectMapper().writeValueAsString(entityTest)
         this.mvc.perform(MockMvcRequestBuilders.post("/events")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(republishEventRequest))
