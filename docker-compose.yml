@@ -30,4 +30,9 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: localhost:2181
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_CREATE_TOPICS: "rw__test:1:1"
-
+  app:
+    depends_on:
+      - postgres
+    build: .
+    expose:
+      - "8080"
