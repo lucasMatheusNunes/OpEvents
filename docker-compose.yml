@@ -6,10 +6,10 @@ services:
     image: postgres
     environment:
       POSTGRES_DB: op_events
-      POSTGRES_USER: postgres 
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-    - "55491:5432"
+      - "55491:5432"
     restart: always
 
   zookeeper:
@@ -23,11 +23,11 @@ services:
     image: wurstmeister/kafka:0.11.0.0
     network_mode: host
     depends_on:
-    - zookeeper
+      - zookeeper
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_ZOOKEEPER_CONNECT: localhost:2181
       KAFKA_ADVERTISED_HOST_NAME: localhost
-      KAFKA_CREATE_TOPICS: "test:1:1, rw__test:1:1:compact"
+      KAFKA_CREATE_TOPICS: "rw__test:1:1"
 

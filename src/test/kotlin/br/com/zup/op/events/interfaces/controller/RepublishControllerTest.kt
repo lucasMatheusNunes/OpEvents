@@ -1,6 +1,5 @@
 package br.com.zup.op.events.interfaces.controller
 
-
 import br.com.zup.op.events.application.KafkaConsumer
 import br.com.zup.op.events.interfaces.model.RepublishEventRequest
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -17,7 +16,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
-import org.springframework.kafka.test.context.EmbeddedKafka
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
@@ -26,22 +24,22 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.util.NestedServletException
 import java.io.File
-
+import java.util.concurrent.TimeUnit
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-class RepublishControllerTest {
+class RepublishControllerTest() {
     private val logger: Logger = LoggerFactory.getLogger(RepublishControllerTest::class.java)
 
     @Autowired
-    lateinit var mvc: MockMvc
+    private lateinit var mvc: MockMvc
+
+    @Autowired
+    private lateinit var consumer: KafkaConsumer
 
     @Autowired
     private lateinit var controller: RepublishController
-
-    @Autowired
-    private lateinit var consumer : KafkaConsumer
 
     private val payload: Map<String, *> = jacksonObjectMapper().readValue(
             File("./src/test/resources/payload.json").readText())
@@ -52,6 +50,7 @@ class RepublishControllerTest {
         mvc = MockMvcBuilders.standaloneSetup(controller)
                 .setMessageConverters(MappingJackson2HttpMessageConverter())
                 .build()
+
     }
 
     @Test(expected = NestedServletException::class)
@@ -73,7 +72,7 @@ class RepublishControllerTest {
     }
 
     @Test
-    fun `should result in successful if requisition is consumed`() {
+    fun `should result in successful and requisition is consumed for`() {
         logger.info("should result in successful if requisition is consumed")
         val eventTest = RepublishEventRequest(
                 "rw__test",
@@ -89,13 +88,14 @@ class RepublishControllerTest {
                 .content(republishEventRequest))
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andDo(MockMvcResultHandlers.print())
+        consumer.latch.await(5000, TimeUnit.MILLISECONDS)
+
         val consumedPayload = File("./src/test/resources/payload.json")
                 .readText()
                 .replace("\n", "")
                 .replace(" ", "")
 
-
-        assertThat(consumer.latch.count).isNotEqualTo(1)
+        assertThat(consumer.latch.count).isEqualTo(0)
         assertThat(consumer.receiving).isEqualTo(consumedPayload)
         logger.info("\nsuccessful requisition and consuming\n${consumer.latch.count.compareTo(0)}\n${consumer.receiving}\n")
     }

@@ -1,6 +1,5 @@
 package br.com.zup.op.events.domain
 
-import br.com.zup.op.events.EventManagerApplicationTests
 import br.com.zup.op.events.infra.validation.ApplicationException
 import org.junit.Assert
 import org.junit.Test
@@ -9,7 +8,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.test.context.junit4.SpringRunner
 import java.io.File
-import java.util.*
 
 @RunWith(SpringRunner::class)
 class EventEntityTest() {
@@ -48,7 +46,7 @@ class EventEntityTest() {
     fun `should accept the validation when the topic not found on list`() {
         logger.info("Testing: should accept the validation when the topic not found on list\n")
 
-        val eventEntity = EventEntity(null, "TOPIC1","", "", "", "","")
+        val eventEntity = EventEntity(null, "TOPIC1", "", "", "", "", "")
         eventEntity.validateTopic(topicEntityEmptyList)
     }
 
@@ -87,6 +85,6 @@ class EventEntityTest() {
                 _key = "abcdfghij3493",
                 note = ""
         )
-        AssertionError( entityTest.validateReason(reasons))
+        AssertionError(entityTest.validateReason(reasons))
     }
 }

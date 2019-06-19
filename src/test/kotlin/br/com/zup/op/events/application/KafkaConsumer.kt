@@ -3,16 +3,11 @@ package br.com.zup.op.events.application
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.annotation.KafkaListener
-import org.springframework.kafka.annotation.KafkaListeners
 import org.springframework.kafka.support.KafkaHeaders
 import org.springframework.messaging.handler.annotation.Header
 import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Component
 import java.util.concurrent.CountDownLatch
-import org.springframework.beans.factory.annotation.Autowired
-
-
-
 
 @Component
 class KafkaConsumer {
@@ -21,8 +16,6 @@ class KafkaConsumer {
     var latch = CountDownLatch(1)
 
     lateinit var receiving: String
-
-
 
     @KafkaListener(id = "consumer-test-group", topics = ["rw__test"])
     fun listen(

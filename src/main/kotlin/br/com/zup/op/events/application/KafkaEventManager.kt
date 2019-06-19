@@ -50,6 +50,7 @@ class KafkaEventManager(
         try {
             kafkaTemplate.send(eventEntity.topic, eventEntity._key, eventEntity.payload).completable().join()
             kafkaTemplate.flush()
+            Thread.sleep(1000)
             eventRepository.save(eventEntity).id.toString()
         } catch (e: Exception) {
             throw ApplicationException(ApplicationField("Error in send of event for apache kafka"))
