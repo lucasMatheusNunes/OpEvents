@@ -9,15 +9,19 @@ import org.springframework.messaging.handler.annotation.Header
 import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Component
 import java.util.concurrent.CountDownLatch
+import org.springframework.beans.factory.annotation.Autowired
+
+
 
 
 @Component
-class KafkaConsumerForTest {
-    private val logger: Logger = LoggerFactory.getLogger(KafkaConsumerForTest::class.java)
+class KafkaConsumer {
+    private val logger: Logger = LoggerFactory.getLogger(KafkaConsumer::class.java)
 
-    val latch: CountDownLatch = CountDownLatch(1)
+    var latch = CountDownLatch(1)
 
     lateinit var receiving: String
+
 
 
     @KafkaListener(id = "consumer-test-group", topics = ["rw__test"])
@@ -30,7 +34,6 @@ class KafkaConsumerForTest {
         logger.info("CountDownLatch: $latch \n")
         this.latch.countDown()
         logger.info("CountDownLatch: $latch \n")
-
     }
 
 }

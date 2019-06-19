@@ -1,7 +1,7 @@
 package br.com.zup.op.events.interfaces.controller
 
 
-import br.com.zup.op.events.application.KafkaConsumerForTest
+import br.com.zup.op.events.application.KafkaConsumer
 import br.com.zup.op.events.interfaces.model.RepublishEventRequest
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -31,8 +31,6 @@ import java.io.File
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-
-
 class RepublishControllerTest {
     private val logger: Logger = LoggerFactory.getLogger(RepublishControllerTest::class.java)
 
@@ -43,7 +41,7 @@ class RepublishControllerTest {
     private lateinit var controller: RepublishController
 
     @Autowired
-    private lateinit var consumer : KafkaConsumerForTest
+    private lateinit var consumer : KafkaConsumer
 
     private val payload: Map<String, *> = jacksonObjectMapper().readValue(
             File("./src/test/resources/payload.json").readText())

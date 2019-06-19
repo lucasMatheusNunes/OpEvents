@@ -34,7 +34,7 @@ class KafkaEventManagerTest() {
                 typeRef,
                 "Reason_1",
                 "APPROVAL_USER'S_NAME",
-                "test-key",
+                "key",
                 "t"
         )
         val result = this.eventManager.republish(entityTest)
