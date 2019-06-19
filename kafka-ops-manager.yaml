@@ -1,0 +1,79 @@
+replicaCount: 1
+envVars:
+  - name: UI_ENV
+    value: qa
+image:
+  repository: kafka-ops-manager
+  tag: latest
+  blueTag: latest
+  greenTag: latest
+  pullPolicy: Always
+service:
+  name: kafka-ops-manager
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+configmaps:
+  enabled: true
+  files:
+    - nginx.conf
+startcommand:
+  enabled: true
+  value: "[\"/bin/sh\",\"-c\",\"/usr/sbin/nginx -c /data/nginx.conf\"]"
+ingress:
+  enabled: false
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - name: k8s-service.apirealwave.io
+      port: http
+  tls:
+    - secretName: apirealwave
+      hosts:
+        - k8s-service.apirealwave.io
+resources:
+  limits:
+    cpu: 1
+    memory: 1536Mi
+  requests:
+    cpu: 500m
+    memory: 1024Mi
+nodeSelector: {}
+tolerations: []
+affinity: {}
+imageCredentials:
+  registry: realwavelab.azurecr.io
+  username: realwavelab
+  password: /uU7PBzXFzMlvlbQZWTHPAPqj38jfLV1
+livenessProbe:
+  enabled: true
+  failureThreshold: 3
+  httpGet:
+    path: /
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 240
+  periodSeconds: 30
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  failureThreshold: 3
+  httpGet:
+    path: /
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 180
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+
+consulnode:
+  enabled: true
+  repository: realwave-node-consul
+  path: /opt/realwave-crm-ui/crm/config
+
+istio:
+  enabled: true

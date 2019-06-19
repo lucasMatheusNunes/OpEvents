@@ -1,0 +1,22 @@
+envVars:
+  - name: DEBUG_MODE
+  value: "on"
+image:
+  repository: kafka-ops-manager
+service:
+  name: kafka-ops-manager
+  type: ClusterIP
+  ports:
+    - name: http
+    port: 80
+resources:
+  limits:
+  cpu: 1
+  memory: 1536Mi
+  requests:
+  cpu: 500m
+  memory: 256Mi
+imageCredentials:
+  registry: realwavelab.azurecr.io
+  username: realwavelab
+  password: /uU7PBzXFzMlvlbQZWTHPAPqj38jfLV1
