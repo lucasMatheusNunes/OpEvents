@@ -7,3 +7,9 @@ spring:
   #JPA Properties
   jpa:
     properties.hibernate.jdbc.lob.non_contextual_creation: true
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+
+    bootstrap-servers: localhost:9092
+

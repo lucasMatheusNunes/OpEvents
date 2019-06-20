@@ -1,12 +1,38 @@
 version: '3'
 services:
+
   postgres:
     container_name: postgres
     image: postgres
     environment:
       POSTGRES_DB: op_events
-      POSTGRES_USER: postgres 
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-    - "55491:5432"
+      - "55491:5432"
     restart: always
+
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    network_mode: host
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: wurstmeister/kafka:0.11.0.0
+    network_mode: host
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ZOOKEEPER_CONNECT: localhost:2181
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_CREATE_TOPICS: "rw__test:1:1"
+  app:
+    depends_on:
+      - postgres
+    build: .
+    expose:
+      - "8080"
